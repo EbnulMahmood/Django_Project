@@ -1,0 +1,38 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <h3>Search Result</h3>
+    <article class="media content-section">
+        {% if results.posts or results.audios or results.pdfs or results.videos %}
+            <div class="media-body">
+                {% for post in results.posts %}
+                    <div class="border-bottom border-success">
+                        <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+                        <p class="article-content">{{ post.content }}</p>
+                    </div>
+                {% endfor %}
+                {% for audio in results.audios %}
+                    <div class="border-bottom border-success">
+                        <h2><a class="article-title" href="{% url 'music-detail' audio.id %}">{{ audio.title }}</a></h2>
+                        <p class="article-content">By {{ audio.artist }}</p>
+                    </div>
+                {% endfor %}
+                {% for pdf in results.pdfs %}
+                    <div class="border-bottom border-success">
+                        <h2><a class="article-title" href="{% url 'audiobook-detail' pdf.id %}">{{ pdf.title }}</a></h2>
+                        <p class="article-content">By {{ pdf.author }}</p>
+                    </div>
+                {% endfor %}
+                {% for video in results.videos %}
+                    <div class="border-bottom border-success">
+                        <h2><a class="article-title" href="{% url 'video-detail' video.id %}">{{ video.title }}</a></h2>
+                        <p class="article-content">By {{ video.artist }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="media-body">
+                <h5 class="article-title">Nothing Found!</h5>
+            </div>
+        {% endif %}
+    </article>
+{% endblock content %}
